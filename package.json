@@ -1,0 +1,24 @@
+{
+  "name": "library_management_system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "tailwind": "npx tailwindcss -i ./src/input.css -o ./build/frontend/css/style.css --watch",
+    "prettier": "npx prettier --write './build/frontend/templates/*.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mbicha/library_management_system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mbicha/library_management_system/issues"
+  },
+  "homepage": "https://github.com/Mbicha/library_management_system#readme",
+  "devDependencies": {
+    "prettier-plugin-tailwindcss": "^0.2.1"
+  }
+}
