@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS librarian (
     librarian_id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
     email_address VARCHAR(60) UNIQUE,
+    secret_key VARCHAR(30) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
