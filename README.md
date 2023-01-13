@@ -10,9 +10,16 @@ JavaScript,
 Python3 (flask),
 Database (Mysql)
 
+# Author
+Charles Mbithi (mbithicharlse@gmail.com)
+
 # Folders and directories
 |   **File**   |   **Description**   |
 | -------------- | --------------------- |
-|[Frontend](/build/frontend/) | Has [css](/build/frontend/css/), [html](/build/frontend/templates/), and [image](/build/frontend/img/) directories containing templates and resources for the website.
-|[Database](/build/database/) | Has .sql files that have sql sqripts to execute during database and table creations.
-|[ERD](sql_erd.png) | SQ ERD diagram.
+|[app](/build/app/) | Has [css](/build/app/static/), [html](/build/app/templates/), and [image](/build/app/static/img/) directories containing templates and resources for the website.|
+|[Main App](/build/app/__init__.py)| Main script of the application
+|[Authentication](/build/app/auth.py)| Has authentication blueprint for the application.|
+|[Base](/build/app/base.py)| Initialize SQLAlchemy|
+|[DB Operations](/build/app/db_operations.py)| Operations for the database.|
+|[Main](/build/app/main.py)| Blueprint for other pages.|
+|[Model](/build/app/model.py)| Define schema for the Library Management System.|

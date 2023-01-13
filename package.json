@@ -4,8 +4,8 @@
   "description": "",
   "main": "tailwind.config.js",
   "scripts": {
-    "tailwind": "npx tailwindcss -i ./src/input.css -o ./build/frontend/css/style.css --watch",
-    "prettier": "npx prettier --write './build/frontend/templates/*.html"
+    "tailwind": "npx tailwindcss -i ./src/input.css -o ./build/app/static/styles/style.css --watch",
+    "prettier": "npx prettier --write './build/app/templates/*.html"
   },
   "repository": {
     "type": "git",
