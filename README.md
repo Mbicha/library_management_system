@@ -23,3 +23,5 @@ Charles Mbithi (mbithicharlse@gmail.com)
 |[DB Operations](/build/app/db_operations.py)| Operations for the database.|
 |[Main](/build/app/main.py)| Blueprint for other pages.|
 |[Model](/build/app/model.py)| Define schema for the Library Management System.|
+|[Utils](./build/app/utils/)| Util classes for generating books and users.|
+|[Add Books and Users](./build/app/auto_insert_book_users.py)| Automatically adds books and users with help of functions in util directory.|
