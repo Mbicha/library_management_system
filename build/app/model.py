@@ -19,19 +19,16 @@ class User(Base):
     user_id = Column(Integer, primary_key=True)
     full_name = Column(String(100), nullable=False)
     email_address = Column(String(60), nullable=False)
-    phone = Column(String(15), nullable=True)
+    phone = Column(String(30), nullable=True)
     is_admin = Column(Enum(YesNoChoice, values_callable=lambda x: [str(return_choice.value) for return_choice in YesNoChoice]), default='No')
     password = Column(String(15), nullable=False)
-    confirmed_password = Column(String(15), nullable=False)
     created_at = Column(DateTime(timezone=True), default=func.now())
 
-    def __init__(self, full_name, email_address, phone, is_admin, pass1, pass2):
+    def __init__(self, full_name, email_address, phone, pass1):
         self.full_name = full_name
         self.email_address = email_address
         self.phone = phone
-        self.is_admin = is_admin
         self.password = pass1
-        self.confirmed_password = pass2
 
     def __repr__(self):
         return f"Name {self.full_name}"
@@ -43,7 +40,7 @@ class Book(Base):
     bk_authors = Column(String(1000), nullable=False)
     categories = Column(String(1000), nullable=True)
     thumbanail = Column(String(1000), nullable=True)
-    description = Column(String(3000), nullable=True)
+    description = Column(String(5000), nullable=True)
     year_published = Column(Integer, nullable=False)
     created_at = Column(DateTime(timezone=True), default=func.now())
 

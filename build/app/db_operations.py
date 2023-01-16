@@ -56,37 +56,6 @@ class DB_Operations:
         book = session.query(table).filter(table.column == value).delete(synchronize_session=False)
         session.commit()
         session.close()
-
-    def create_book(self, isbn, title, authors, categories, thumbnail, description, year_published):
-        """
-        Args:
-            isbn (string): Book unigue identifier
-            bk_title (string): Book title
-            bk_authors (string): Author(s) of the book
-            categories (string): Book category
-            thumbnail (string): Book image url string
-            description (string): Short description of the book
-            publisher_year (int): Year the book was published
-        """
-        book = Book(isbn, title, authors, categories, thumbnail, description, year_published)
-        session.add(book)
-        session.commit()
-
-    
-    def create_user(self, full_name, email_address, phone, is_admin, pass1, pass2):
-        """
-        Args:
-            full_name (string) - Names of the user
-            email_address (string) - Email of the user
-            phone (string) - Phone Number of the user
-            is_admin (bool) - whether the user is admin or not
-            pass1 (string) - Password to be used by the user when they are logging in
-            pass2 (string) - Confirm password
-        """
-        user = User(full_name, email_address, phone, is_admin, pass1, pass2)
-        session.add(user)
-        session.commit()
-        session.close()
     
     def create_librarian(self, full_name, email_address, secret_key):
         """
@@ -113,5 +82,39 @@ class DB_Operations:
         """
         issued = Issued(book, librarian, borrower)
         session.add(issued)
+        session.commit()
+        session.close()
+
+class BookOP:
+    """Book db operations"""
+    def create_book(self, isbn, title, authors, categories, thumbnail, description, year_published):
+        """
+        Args:
+            isbn (string): Book unigue identifier
+            bk_title (string): Book title
+            bk_authors (string): Author(s) of the book
+            categories (string): Book category
+            thumbnail (string): Book image url string
+            description (string): Short description of the book
+            publisher_year (int): Year the book was published
+        """
+        book = Book(isbn, title, authors, categories, thumbnail, description, year_published)
+        session.add(book)
+        session.commit()
+
+class UserOP:
+    """ User database operations """
+    def create_user(self, full_name, email_address, phone, pass1):
+        """
+        Args:
+            full_name (string) - Names of the user
+            email_address (string) - Email of the user
+            phone (string) - Phone Number of the user
+            is_admin (bool) - whether the user is admin or not
+            pass1 (string) - Password to be used by the user when they are logging in
+            pass2 (string) - Confirm password
+        """
+        user = User(full_name, email_address, phone, pass1)
+        session.add(user)
         session.commit()
         session.close()
