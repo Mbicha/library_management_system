@@ -90,7 +90,7 @@ class BookOP:
     def create_book(self, isbn, title, authors, categories, thumbnail, description, year_published):
         """
         Args:
-            isbn (string): Book unigue identifier
+            isbn (int): Book unigue identifier
             bk_title (string): Book title
             bk_authors (string): Author(s) of the book
             categories (string): Book category
@@ -101,6 +101,14 @@ class BookOP:
         book = Book(isbn, title, authors, categories, thumbnail, description, year_published)
         session.add(book)
         session.commit()
+
+    def get_book_by_isbn(self, isbn):
+        """
+        Return book object
+        """
+        bk = session.query(Book).get(isbn)
+        session.close()
+        return bk
 
 class UserOP:
     """ User database operations """

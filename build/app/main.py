@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 import os
-from db_operations import DB_Operations
+from db_operations import DB_Operations, BookOP
 from flask import Blueprint, render_template, request, abort, url_for, redirect
 from model import Book
+from utils.books_to_list import csv_to_list
 
 
 # template_dir = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -46,14 +47,16 @@ def books_list():
     books = bk.get_all(Book)
     return render_template('books_list.html', books=books)
 
-@main.route("/borrowed")
-def borrowed():
-    bk = DB_Operations()
-    borrowed_books = bk.get_all(Book)
-    return render_template('borrowed.html', borrowed=borrowed_books)
+# @main.route("/book_details")
+# def book_details():
+#     return render_template('book_details.html')
 
-# @app.teardown_appcontext
-# def teardown_db(exception):
-#     """closes the storage on teardown"""
-#     session = get_session()
-#     session.close_all()
+@main.route("/book_details/<string:isbn_no>", methods=['GET'])
+def get_details(isbn_no):
+    bk = BookOP()
+    single_bk = bk.get_book_by_isbn(isbn_no)
+    return render_template('book_details.html', book=single_bk)
+
+@main.route("/borrowed/")
+def borrowed():
+    return render_template('borrowed.html')

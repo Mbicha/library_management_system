@@ -20,7 +20,7 @@ def add_books(path):
         try:
             book_op.create_book(bk[0], bk[1], bk[2], bk[3], bk[4], bk[5], bk[6])
         except:
-            print(f"Error!")
+            print(f"Error Adding Book!")
 
 def add_users(num):
     """ 
@@ -36,7 +36,7 @@ def add_users(num):
         try:
             userOP.create_user(user[0], user[1], user[2], user[3])
         except:
-            print(f"Error!")
+            print(f"Error Adding User!")
 
 if __name__ == "__main__":
     add_books(books_path) # Replace Path with your own
