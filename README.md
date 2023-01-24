@@ -17,11 +17,10 @@ Charles Mbithi (mbithicharlse@gmail.com)
 |   **File**   |   **Description**   |
 | -------------- | --------------------- |
 |[app](/build/app/) | Has [css](/build/app/static/), [html](/build/app/templates/), and [image](/build/app/static/img/) directories containing templates and resources for the website.|
-|[Main App](/build/app/__init__.py)| Main script of the application
-|[Authentication](/build/app/auth.py)| Has authentication blueprint for the application.|
-|[Base](/build/app/base.py)| Initialize SQLAlchemy|
-|[DB Operations](/build/app/db_operations.py)| Operations for the database.|
-|[Main](/build/app/main.py)| Blueprint for other pages.|
-|[Model](/build/app/model.py)| Define schema for the Library Management System.|
+|[Main App](/build/app/lbs.py)| Main script of the application|
+|[Base](/build/app/common/base.py)| Initialize SQLAlchemy|
+|[Blueprint](/build/app/blueprint/)| Blueprint defining routes fro interacting with the the pages of our website.|
+|[Models](/build/app/models/)| Has python files defining table schemas and database operations.|
 |[Utils](./build/app/utils/)| Util classes for generating books and users.|
 |[Add Books and Users](./build/app/auto_insert_book_users.py)| Automatically adds books and users with help of functions in util directory.|
+|[Project Tree](./lbs_tree.txt)| .txt file showing project tree|

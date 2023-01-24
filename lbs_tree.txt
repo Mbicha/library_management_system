@@ -1,0 +1,95 @@
+.
+├── build
+│   ├── app
+│   │   ├── auto_insert_book_users.py
+│   │   ├── blueprints
+│   │   │   ├── auth.py
+│   │   │   ├── __init__.py
+│   │   │   ├── main.py
+│   │   │   └── __pycache__
+│   │   │       ├── admin_blueprint.cpython-310.pyc
+│   │   │       ├── auth.cpython-310.pyc
+│   │   │       ├── book_blueprint.cpython-310.pyc
+│   │   │       ├── __init__.cpython-310.pyc
+│   │   │       └── main.cpython-310.pyc
+│   │   ├── common
+│   │   │   ├── base.py
+│   │   │   ├── configs.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── base.cpython-310.pyc
+│   │   │       ├── configs.cpython-310.pyc
+│   │   │       ├── __init__.cpython-310.pyc
+│   │   │       └── secrets_file.cpython-310.pyc
+│   │   ├── lbs.py
+│   │   ├── models
+│   │   │   ├── bk_return.py
+│   │   │   ├── book.py
+│   │   │   ├── __init__.py
+│   │   │   ├── issued.py
+│   │   │   ├── librarian.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── admin.cpython-310.pyc
+│   │   │   │   ├── book.cpython-310.pyc
+│   │   │   │   ├── __init__.cpython-310.pyc
+│   │   │   │   └── user.cpython-310.pyc
+│   │   │   └── user.py
+│   │   ├── __pycache__
+│   │   │   ├── auth.cpython-310.pyc
+│   │   │   ├── auth.cpython-38.pyc
+│   │   │   ├── base.cpython-310.pyc
+│   │   │   ├── base.cpython-38.pyc
+│   │   │   ├── db_operations.cpython-310.pyc
+│   │   │   ├── db_operations.cpython-38.pyc
+│   │   │   ├── __init__.cpython-38.pyc
+│   │   │   ├── main.cpython-310.pyc
+│   │   │   ├── main.cpython-38.pyc
+│   │   │   ├── model.cpython-310.pyc
+│   │   │   ├── model.cpython-38.pyc
+│   │   │   ├── secrets_file.cpython-310.pyc
+│   │   │   └── secrets_file.cpython-38.pyc
+│   │   ├── static
+│   │   │   ├── img
+│   │   │   │   ├── books.jpeg
+│   │   │   │   ├── delete.svg
+│   │   │   │   ├── edit.svg
+│   │   │   │   ├── library_management_system_green_bg.png
+│   │   │   │   ├── library_management_system.png
+│   │   │   │   └── library_management_system.svg
+│   │   │   └── styles
+│   │   │       └── style.css
+│   │   ├── templates
+│   │   │   ├── account.html
+│   │   │   ├── base.html
+│   │   │   ├── book_details.html
+│   │   │   ├── books_list.html
+│   │   │   ├── borrowed.html
+│   │   │   ├── edit_book.html
+│   │   │   ├── footer.html
+│   │   │   ├── index.html
+│   │   │   ├── librarian.html
+│   │   │   ├── login.html
+│   │   │   ├── top_nav.html
+│   │   │   └── update_user.html
+│   │   └── utils
+│   │       ├── books_to_list.py
+│   │       ├── generate_users.py
+│   │       └── __pycache__
+│   │           ├── books_to_list.cpython-310.pyc
+│   │           └── generate_users.cpython-310.pyc
+│   ├── data
+│   │   ├── books.csv
+│   │   ├── books.ipynb
+│   │   └── refernces.txt
+│   └── database
+│       └── create_lbs_database.sql
+├── lbs_tree.txt
+├── lbs.txt
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+│   └── input.css
+└── tailwind.config.js
+
+18 directories, 74 files

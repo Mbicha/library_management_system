@@ -3,17 +3,16 @@
     <main class="w-11/12 flex justify-center items-center">
         <section class="w-auto border border-solid border-spacing-1 border-green-700 rounded-xl m-4 dark:text-white">
             <h2 class="inline-block w-full m-3 text-center text-3xl text-green-700">Signup</h2>
-            <hr class="bg-green-700 w-4/5 m-auto">
-            <form action="/account" method="post" class="flex flex-col justify-center text-center m-3 w-11/12">
+            <hr class="bg-green-700 w-4/5 m-auto">            
+            <form action="/user/new" method="post" class="flex flex-col justify-center text-center m-3 w-11/12">
                 <input type="text" placeholder="Fullname" class="mt-2 p-1 border border-solid text-1xl required", name="full_name"/>
                 <input type="text" placeholder="Email" class="mt-2 p-1 border border-solid text-1xl", name="email"/>
                 <input type="text" placeholder="Phone Number" class="mt-2 p-1 border border-solid text-1xl", name="phone"/>
-                <input type="text" placeholder="is admin?" class="mt-2 p-1 border border-solid text-1xl", name="is_admin"/>
                 <input type="password" placeholder="Password" class="mt-2 p-1 border border-solid text-1xl", name="password"/>
                 <input type="password" placeholder="Confirm Password" class="mt-2 p-1 border border-solid text-1xl" name="confirm_password"/>
                 <input type="submit" value="Signup" class="w-auton mt-2 p-1 border border-solid text-2xl rounded-2xl bg-green-700 text-white"/>
-                <p class="p-3">Already have an account? <a href="{{ url_for('auth.login') }}" class="text-blue-700">Signin</a></p>
-            </form>
+                <p class="p-3">Already have an account? <a href="#" class="text-blue-700">Login</a></p>
+            </form>            
         </section>
     </main>
 {% endblock %}

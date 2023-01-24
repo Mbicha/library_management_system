@@ -1,12 +1,14 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
-from db_operations import BookOP, UserOP
+from common.base import Base, engine
+from models.book import Book
+from models.user import User
 from utils.books_to_list import csv_to_list
 from utils.generate_users import generate_users
 
-book_op = BookOP()
-
 books_path = "build/data/books.csv"
+
+Base.metadata.create_all(engine)
 
 def add_books(path):
     """
@@ -18,7 +20,8 @@ def add_books(path):
     books_lst = csv_to_list(path)
     for bk in books_lst:
         try:
-            book_op.create_book(bk[0], bk[1], bk[2], bk[3], bk[4], bk[5], bk[6])
+            book = Book(bk[0], bk[1], bk[2], bk[3], bk[4], bk[5], bk[6])
+            book.create_book()
         except:
             print(f"Error Adding Book!")
 
@@ -30,11 +33,11 @@ def add_users(num):
         Return:
             void
     """
-    userOP = UserOP()
     users = generate_users(num)
     for user in users:
         try:
-            userOP.create_user(user[0], user[1], user[2], user[3])
+            user = User(user[0], user[1], user[2], user[3])
+            user.create_user()
         except:
             print(f"Error Adding User!")
 
