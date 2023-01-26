@@ -40,23 +40,15 @@ class User(Base, object):
             myql_session.add(new_user)
             myql_session.commit()
             myql_session.close()
-        else:
-            self.update_user()
 
-    @classmethod
-    def update_user(cls, full_name, email_address, phone, password):
-        """
-        Updates User
-        """
-        user = User.get_by_email(email_address)
-        if user is not None:
-            id = User.get_id_by_email(email_address)
+        else:
+            id = User.get_id_by_email(self.email_address)
 
             new_user_data = {
-                "full_name": full_name,
-                "email_address": email_address,
-                "phone": phone,
-                "password": password
+                "full_name": self.full_name,
+                "email_address": self.email_address,
+                "phone": self.phone,
+                "password": self.password
             }
 
             myql_session.query(User).filter(
@@ -65,10 +57,8 @@ class User(Base, object):
             myql_session.commit()
             myql_session.flush()
             myql_session.close()
-        else:
-            new_user = User(full_name, email_address, phone, password)
-            new_user.create_user()
 
+    @classmethod
     def delete_user(cls, user_id):
         """
         Delete user by id
@@ -123,17 +113,44 @@ class User(Base, object):
     def logout():
         session['email_address'] = None
 
-# user = User("Mbithi Rhoda", "mbithicharlse@gmail.com", "98573123", "1234")
+    @staticmethod
+    def update_user(full_name, email_address, phone, password):
+        """
+        Updates User
+        """
+        user = User.get_by_email(email_address)
+        if user is not None:
+            id = User.get_id_by_email(email_address)
 
-# print("Get User By Email\n\n")
-# print(user.get_by_email("mbithicharlse@gmail.com"))
-# print("Get ID By Email\n")
-# print(user.get_id_by_email("mbithicharlse@gmail.com"))
-# user.update_user()
-# print("Updated\n\n")
-# print(user.get_by_email("mbithicharlse@gmail.com"))
+            new_user_data = {
+                "full_name": full_name,
+                "email_address": email_address,
+                "phone": phone,
+                "password": password
+            }
+
+            myql_session.query(User).filter(
+                User.user_id == id
+            ).update(new_user_data)
+            myql_session.commit()
+            myql_session.flush()
+            myql_session.close()
+        else:
+            new_user = User(full_name, email_address, phone, password)
+            new_user.create_user()
+
+user = User("Charles Mbithi", "charles@gmail.com", "98573123", "1234")
+user.create_user()
+print("Get User By Email\n\n")
+print(user.get_by_email("charles@gmail.com"))
+print("Get ID By Email\n")
+print(user.get_id_by_email("charles@gmail.com"))
+user = User("Charles Mbithi Rhoda", "charles@gmail.com", "78573123", "19234")
+user.create_user()
+print("Updated\n\n")
+print(user.get_by_email("charles@gmail.com"))
 # try:
-#     user.delete_user(55)
+#     user.delete_user(50)
 #     print(f"success")
 # except:
 #     print(f"Error deleting user")

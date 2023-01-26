@@ -112,3 +112,17 @@ class Book(Base):
         """
         books: list = myql_session.query(Book).filter(Book.bk_authors==bk_authors).all()
         return [book for book in books]
+
+    @staticmethod
+    def check_if_empty(lst: list) -> int:
+        """
+        Checks if list is empty
+        Args:
+            lst (List) - List to be checked
+        Return:
+
+        """
+        if len(lst) == 0:
+            return f"No results found"
+        else:
+            return lst

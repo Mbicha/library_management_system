@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/Mbicha/library_management_system#readme",
   "devDependencies": {
-    "prettier-plugin-tailwindcss": "^0.2.1"
+    "prettier-plugin-tailwindcss": "^0.2.2"
   }
 }

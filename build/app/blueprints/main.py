@@ -17,10 +17,46 @@ main = Blueprint('main',__name__)
 
 has_account = False
 
+filters = {
+        "author": "Author",
+        "categories": "Category",
+        "isbn_no": "ISBN NO",
+        "bk_title": "Title",
+        "year_published": "Year Published"
+    }
+
 @main.route("/")
 def home():
-    return render_template('index.html')
+    return render_template('index.html', filters=filters)
 
+@main.route("/book/search/<string:search_filter>", methods=['GET', 'POST'])
+def book_search(search_filter):
+    if request.method == 'GET':
+        return redirect(url_for("main.home"))
+    else:
+        selected = request.form['search-filter']
+        print(selected)
+        search_filter = request.form['filter_value']
+        print(search_filter)
+        if selected == 'Author':
+            books = Book.get_books_by_author(search_filter)
+            books = Book.check_if_empty(books)
+            return books
+        elif selected == 'Category':
+            books = Book.get_books_by_category(search_filter)
+            books = Book.check_if_empty(books)
+            return books
+        elif selected == 'ISBN NO':
+            book = Book.get_book_by_isbn(search_filter)
+            return render_template('book_details.html', book=book)
+        elif selected == 'Title':
+            books = Book.get_books_by_title(search_filter)
+            books = Book.check_if_empty(books)
+            return books
+        else:
+            books = Book.get_books_by_year_published(int(search_filter))
+            books = Book.check_if_empty(books)
+            return books
 
 @main.route("/books/new", methods=['GET', 'POST', 'PUT'], strict_slashes=False)
 def new_book():
@@ -70,31 +106,18 @@ def new_new():
             new_user.create_user()        
             return render_template('index.html')
 
-@main.route("/user/update/<string:email_address>", methods=['GET', 'PUT', 'DELETE'])
+@main.route("/user/update/<string:email_address>", methods=['GET', 'PUT'])
 def user_update(email_address):
     if request.method == 'GET':
-        return render_template('update_user.html', user=User.get_by_email(email_address))
-    elif request.method == 'PUT':
+        user = User.get_by_email(email_address)
+        if user is not None:
+            return render_template('update_user.html', user=user)
+    else:
         full_name = request.form['full_name']
         email_address = request.form['email']
         phone = request.form['phone']        
         password = request.form['password']
 
-        User.update_user(full_name, email_address, phone, password)
+        update_user = User(full_name, email_address, phone, password)
+        update_user.create_user()
         return render_template('index.html')
-
-# @main.route("/admin/login", methods=['GET','POST'])
-# def login_user():
-#     if request.method == 'GET':
-#         return render_template('admin_login.html')
-
-#     else:
-#         email = request.form['email']
-#         password = request.form['password']
-
-#         if Admin.is_admin_logins_valid(email, password):
-#             Admin.login(email)
-#         else:
-#             session['email_address'] =  None
-
-#         return render_template('index.html', email_address=session['email_address'])
