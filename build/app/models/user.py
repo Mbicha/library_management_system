@@ -90,6 +90,25 @@ class User(Base, object):
             }
 
     @classmethod
+    def get_by_id(cls, user_id):
+        """
+        Args:
+            user_id - get user object
+        Return:
+            User object
+        """
+        user = myql_session.query(User).filter(
+            User.user_id==user_id).first()
+        return {
+                "user_id": user.user_id,
+                "full_name": user.full_name,
+                "email_address": user.email_address,
+                "phone": user.phone,
+                "password": user.password
+            }
+            
+
+    @classmethod
     def get_id_by_email(cls, email_address):
         user_id = User.get_by_email(email_address)['user_id']
         if user_id is not None:
@@ -133,24 +152,4 @@ class User(Base, object):
                 User.user_id == id
             ).update(new_user_data)
             myql_session.commit()
-            myql_session.flush()
             myql_session.close()
-        else:
-            new_user = User(full_name, email_address, phone, password)
-            new_user.create_user()
-
-# user = User("Charles Mbithi", "charles@gmail.com", "98573123", "1234")
-# user.create_user()
-# print("Get User By Email\n\n")
-# print(user.get_by_email("charles@gmail.com"))
-# print("Get ID By Email\n")
-# print(user.get_id_by_email("charles@gmail.com"))
-# user = User("Charles Mbithi Rhoda", "charles@gmail.com", "78573123", "19234")
-# user.create_user()
-# print("Updated\n\n")
-# print(user.get_by_email("charles@gmail.com"))
-# try:
-#     user.delete_user(50)
-#     print(f"success")
-# except:
-#     print(f"Error deleting user")
