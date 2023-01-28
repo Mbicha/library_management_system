@@ -29,34 +29,48 @@ filters = {
 def home():
     return render_template('index.html', filters=filters)
 
-@main.route("/book/search/<string:search_filter>", methods=['GET', 'POST'])
-def book_search(search_filter):
+# @main.route('/results/<string:bks>')
+# def search_results(bks):
+#     return render_template('search_results.html', books=bks)
+
+@main.route("/book/search/", methods=['GET', 'POST'])
+def book_search():
     if request.method == 'GET':
         return redirect(url_for("main.home"))
     else:
         selected = request.form['search-filter']
-        print(selected)
         search_filter = request.form['filter_value']
-        print(search_filter)
-        if selected == 'Author':
+        if selected == 'author':
             books = Book.get_books_by_author(search_filter)
             books = Book.check_if_empty(books)
-            return books
-        elif selected == 'Category':
+            return render_template('search_results.html',
+                books=books,
+                filter_res=filters[selected]
+            )
+        elif selected == 'categories':
             books = Book.get_books_by_category(search_filter)
             books = Book.check_if_empty(books)
-            return books
-        elif selected == 'ISBN NO':
+            return render_template('search_results.html',
+                books=books,
+                filter_res=filters[selected]
+            )
+        elif selected == 'isbn_no':
             book = Book.get_book_by_isbn(search_filter)
-            return render_template('book_details.html', book=book)
-        elif selected == 'Title':
+            return render_template('search_results.html',
+                books=book,
+                filter_res=filters[selected]
+            )
+        elif selected == 'bk_title':
             books = Book.get_books_by_title(search_filter)
             books = Book.check_if_empty(books)
-            return books
+            return render_template('search_results.html',
+                books=books,
+                filter_res=filters[selected]
+            )
         else:
             books = Book.get_books_by_year_published(int(search_filter))
             books = Book.check_if_empty(books)
-            return books
+            return render_template('search_results.html', books=books)
 
 @main.route("/books/new", methods=['GET', 'POST', 'PUT'], strict_slashes=False)
 def new_book():

@@ -29,26 +29,40 @@ class Book(Base):
     def __repr__(self):
         return f"{self.bk_title}"
 
+    def json(self):
+        return {
+                "isbn_no": self.isbn_no,
+                "bk_title": self.bk_title,
+                "bk_authors": self.bk_authors,
+                "categories": self.categories,
+                "thumbanail": self.thumbanail,
+                "description": self.description,
+                "year_published": self.year_published
+        }
+
     def create_book(self):
-        book = Book(
-            self.isbn_no,
-            self.bk_title,
-            self.bk_authors,
-            self.categories,
-            self.thumbanail,
-            self.description,
-            self.year_published
+        book = Book(self.json()
+            # self.isbn_no,
+            # self.bk_title,
+            # self.bk_authors,
+            # self.categories,
+            # self.thumbanail,
+            # self.description,
+            # self.year_published
         )
-        myql_session.add(book)
-        myql_session.commit()
-        myql_session.close()
+        book_info = Book.get_book_by_isbn(self.isbn_no)
+        if book_info is None:
+            myql_session.add(book)
+            myql_session.commit()
+            myql_session.close()
+        else:
+            return "Book already exists"
 
     @classmethod
     def get_books(cls):
-        try:
-            return myql_session.query(Book).all()
-        except:
-            return f"Error Retrieing Books"
+        """ Returns a list of all books """
+        books = myql_session.query(Book).all()
+        return [book for book in books]
 
     @classmethod
     def get_book_by_isbn(cls, isbn_no):

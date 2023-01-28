@@ -1,28 +1,29 @@
-    <footer id="footer" class="bg-green-700 text-white text-xl sticky bottom-0 align-middle mt-auto w-full">
-        <section class="max-w-4xl mx-auto p-4 flex flex-col sm:flex-row sm:justify-between">
-            <div class="text-center">
-                <h2>Opening Hours</h2>
-                <div id="weekday">
-                    Week Day: <b>8:00 AM - 7:00 PM</b>
-                </div>
-                <div id="weekends">
-                    Weekends: <b>9:00 AM - 3:00 PM</b>
-                </div>
-                <div id="holidays">
-                    Holidays: <b>Closed</b>
-                </div>
-            </div>
+<footer
+  id="footer"
+  class="sticky bottom-0 mt-auto w-full bg-green-700 align-middle text-xl text-white"
+>
+  <section
+    class="mx-auto flex max-w-4xl flex-col justify-center p-4"
+  >
+    <!-- <div class="text-center">
+      <h2>Opening Hours</h2>
+      <div id="weekday">Week Day: <b>8:00 AM - 7:00 PM</b></div>
+      <div id="weekends">Weekends: <b>9:00 AM - 3:00 PM</b></div>
+      <div id="holidays">Holidays: <b>Closed</b></div>
+    </div> -->
 
-            <hr class="sm:visible">
+    <!-- <hr class="sm:visible" /> -->
 
-            <nav class="hidden md:flex flex-col gap-2" aria-label="footer">
-                <a href="{{ url_for('main.books') }}" class="hover:opacity-90">Books List</a>
-                <a href="#" class="hover:opacity-90">Borrowed</a>
-                <a href="#" class="hover:opacity-90">Account</a>
-            </nav>
-            <div class="flex flex-col sm:gap-2">
-                <p class="text-center">Copyright &copy; <span id="year">2022</span></p>
-                <p class="text-center">All Rights Reserved</p>
-            </div>
-        </section>
-    </footer>
+    <!-- <nav class="hidden flex-col gap-2 md:flex" aria-label="footer">
+      <a href="{{ url_for('main.books') }}" class="hover:opacity-90"
+        >Books List</a
+      >
+      <a href="#" class="hover:opacity-90">Borrowed</a>
+      <a href="#" class="hover:opacity-90">Account</a>
+    </nav> -->
+    <div class="flex flex-col sm:gap-2">
+      <p class="text-center">Copyright &copy; <span id="year">2022</span></p>
+      <p class="text-center">All Rights Reserved</p>
+    </div>
+  </section>
+</footer>
