@@ -16,6 +16,7 @@ from models.book import Book
 main = Blueprint('main',__name__)
 
 has_account = False
+book_exists = False
 
 filters = {
         "author": "Author",
@@ -72,10 +73,11 @@ def book_search():
             books = Book.check_if_empty(books)
             return render_template('search_results.html', books=books)
 
-@main.route("/books/new", methods=['GET', 'POST', 'PUT'], strict_slashes=False)
+@main.route("/books/new", methods=['GET', 'POST'], strict_slashes=False)
 def new_book():
+    book_exists=False
     if request.method == 'GET':
-        return render_template('edit_book.html')
+        return render_template('edit_book.html', book_exists=book_exists)
     else:
         isbn = request.form['isbn']
         title = request.form['title']
@@ -89,6 +91,30 @@ def new_book():
         book.create_book()
         return redirect(url_for('main.books'))
 
+@main.route("/book/update/<string:isbn_no>", methods=['GET', 'POST'])
+def update_book(isbn_no):
+    book_exists = True
+    if request.method == 'GET':
+        book = Book.get_book_by_isbn(isbn_no)
+        return render_template('edit_book.html', book=book, book_exists=book_exists, isbn_no=isbn_no)
+    else:
+        isbn = request.form['isbn']
+        title = request.form['title']
+        author = request.form['author']
+        category = request.form['category']
+        thumbnail = request.form['thumbnail']
+        description = request.form['description']
+        year_published = request.form['year_published']
+
+        Book.book_update(isbn, title, author, category, thumbnail, description, year_published)
+        return redirect(url_for("main.books"))
+
+@main.route("/book/delete/<string:isbn_no>")
+def delete_book(isbn_no):
+    Book.book_delete(isbn_no)
+    return redirect(url_for('main.books'))
+
+
 @main.route("/books", strict_slashes=False)
 def books():
     books = Book.get_books()
@@ -97,41 +123,8 @@ def books():
 @main.route("/book_details/<string:isbn_no>", strict_slashes=False)
 def book_details(isbn_no):
     book = Book.get_book_by_isbn(isbn_no)
-    return render_template('book_details.html', book=book)
+    return render_template('book_details.html', book=book, isbn_no=isbn_no)
 
 @main.route("/borrowed/")
 def borrowed():
     return render_template('borrowed.html')
-
-# User
-@main.route("/user/new", methods=['GET', 'POST'])
-def new_new():
-    if request.method == 'GET':
-        return render_template('account.html')
-    else:
-        full_name = request.form['full_name']
-        email = request.form['email']
-        phone = request.form['phone']        
-        password = request.form['password']
-        confrim_password = request.form['confirm_password']
-
-        if password == confrim_password:
-            new_user = User(full_name, email, phone, password)
-            new_user.create_user()        
-            return render_template('index.html')
-
-@main.route("/user/update/<string:email_address>", methods=['GET', 'PUT'])
-def user_update(email_address):
-    if request.method == 'GET':
-        user = User.get_by_email(email_address)
-        if user is not None:
-            return render_template('update_user.html', user=user)
-    else:
-        full_name = request.form['full_name']
-        email_address = request.form['email']
-        phone = request.form['phone']        
-        password = request.form['password']
-
-        update_user = User(full_name, email_address, phone, password)
-        update_user.create_user()
-        return render_template('index.html')

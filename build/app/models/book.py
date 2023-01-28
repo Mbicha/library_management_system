@@ -29,34 +29,39 @@ class Book(Base):
     def __repr__(self):
         return f"{self.bk_title}"
 
-    def json(self):
-        return {
-                "isbn_no": self.isbn_no,
-                "bk_title": self.bk_title,
-                "bk_authors": self.bk_authors,
-                "categories": self.categories,
-                "thumbanail": self.thumbanail,
-                "description": self.description,
-                "year_published": self.year_published
-        }
-
     def create_book(self):
-        book = Book(self.json()
-            # self.isbn_no,
-            # self.bk_title,
-            # self.bk_authors,
-            # self.categories,
-            # self.thumbanail,
-            # self.description,
-            # self.year_published
+        book = Book(
+            self.isbn_no,
+            self.bk_title,
+            self.bk_authors,
+            self.categories,
+            self.thumbanail,
+            self.description,
+            self.year_published
         )
-        book_info = Book.get_book_by_isbn(self.isbn_no)
-        if book_info is None:
-            myql_session.add(book)
-            myql_session.commit()
-            myql_session.close()
-        else:
-            return "Book already exists"
+        myql_session.add(book)
+        myql_session.commit()
+        myql_session.close()
+
+    @staticmethod
+    def book_update(isbn_no, bk_title, bk_authors, category, thumbnail, description, year_published):
+        book = myql_session.query(Book).filter_by(isbn_no=isbn_no).first()
+        book.bk_title = bk_title
+        book.bk_authors = bk_authors
+        book.categories = category
+        book.thumbanail = thumbnail
+        book.description = description
+        book.year_published = year_published
+
+        myql_session.commit()
+        myql_session.close()
+
+    @staticmethod
+    def book_delete(isbn_no):
+        book = myql_session.query(Book).filter(Book.isbn_no==isbn_no).first()
+        myql_session.delete(book)
+        myql_session.commit()            
+        myql_session.close()
 
     @classmethod
     def get_books(cls):

@@ -14,6 +14,9 @@ def create_app():
     from blueprints.main import main
     app.register_blueprint(main)
 
+    from blueprints.user import user_blueprint
+    app.register_blueprint(user_blueprint)
+
     return app
 
 if __name__ == "__main__":

@@ -1,9 +1,15 @@
 {% extends 'base.html' %} {% block main %}
 <main class="flex w-11/12 flex-col justify-center align-middle">
 
-  <div class="flex flex-row w-max-full justify-end p-3 text-2xl">
+  <div class="flex flex-row w-max-full justify-end p-3 text-lg">
+    <a href="/book/update/{{ isbn_no }}" class="border border-spacing-1 border-solid bg-green-700 p-2 rounded-lg text-white">
+      Update
+    </a>
     <a href="#" class="border border-spacing-1 border-solid bg-green-700 p-2 rounded-lg text-white">
       Borrow
+    </a>
+    <a href="/book/delete/{{ isbn_no }}" class="border border-spacing-1 border-solid bg-red-700 p-2 rounded-lg text-white">
+      Delete
     </a>
   </div>
 
@@ -17,6 +23,7 @@
       <article class="p-2">
         <h1 class="text-3xl text-green-700">{{ book.bk_title }}</h1>
         <hr>
+        <p class="m-2"><b><span text="text-2xl">ISBN NO </span></b>{{ book.isbn_no }}</p>
         <p class="m-2"><b><span text="text-2xl">Author(s) </span></b>{{ book.bk_authors }}</p>
         <p class="m-2"><b><span text="text-2xl">Category </span></b>{{ book.categories }}</p>
         <p class="m-2"><b><span text="text-2xl">Year Published </span></b>{{ book.year_published }}</p>
