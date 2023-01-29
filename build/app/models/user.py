@@ -58,16 +58,16 @@ class User(Base, object):
             myql_session.flush()
             myql_session.close()
 
-    @classmethod
-    def delete_user(cls, user_id):
+    @staticmethod
+    def delete_user(user_id):
         """
         Delete user by id
         Args:
             user_id - user id to use for deleting
         """
-        myql_session.query(User).filter(User.user_id == user_id).delete(synchronize_session=False)
-        User.logout()
-        myql_session.commit()
+        user = myql_session.query(User).filter(User.user_id==user_id).first()
+        myql_session.delete(user)
+        myql_session.commit()            
         myql_session.close()
     
     @classmethod
@@ -133,23 +133,15 @@ class User(Base, object):
         session['email_address'] = None
 
     @staticmethod
-    def update_user(full_name, email_address, phone, password):
+    def update_user(user_id, full_name, email_address, phone, password):
         """
         Updates User
         """
-        user = User.get_by_email(email_address)
-        if user is not None:
-            id = User.get_id_by_email(email_address)
+        user = User.get_by_id(user_id)
+        user.full_name = full_name
+        user.email_address = email_address
+        user.phone = phone
+        user.password = password
 
-            new_user_data = {
-                "full_name": full_name,
-                "email_address": email_address,
-                "phone": phone,
-                "password": password
-            }
-
-            myql_session.query(User).filter(
-                User.user_id == id
-            ).update(new_user_data)
-            myql_session.commit()
-            myql_session.close()
+        myql_session.commit()
+        myql_session.close()

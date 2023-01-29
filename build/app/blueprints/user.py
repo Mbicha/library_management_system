@@ -5,7 +5,16 @@ from models.user import User
 
 user_blueprint  = Blueprint('user_blueprint', __name__)
 
-# User
+has_account = False
+
+@user_blueprint.route("/account")
+def signup_template():
+    return render_template('account.html', has_account=False)
+
+@user_blueprint.route("/login")
+def login_template():
+    return render_template('login.html')
+
 @user_blueprint.route("/user/new", methods=['GET', 'POST'])
 def new_user():
     has_account = False
@@ -45,3 +54,8 @@ def user_update(user_id):
         update_user = User(full_name, email_address, phone, password)
         update_user.create_user()
         return render_template('login.html')
+
+@user_blueprint.route("/user/delete/<int:user_id>")
+def user_delete(user_id):
+    User.delete_user(user_id)
+    return redirect(url_for('user_blueprint.signup_template'))
