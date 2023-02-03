@@ -8,23 +8,27 @@
     </h2>
     <hr class="m-auto w-4/5 bg-green-700" />
     <form
-      action=""
+      action="/librarian/new"
+      method="post"
       class="m-3 flex w-11/12 flex-col justify-center text-center"
     >
       <input
         type="text"
         placeholder="Fullname"
         class="text-1xl required mt-2 border border-solid p-1"
+        name="full_name"
       />
       <input
         type="text"
         placeholder="Email"
         class="text-1xl mt-2 border border-solid p-1"
+        name="email_address"
       />
       <input
         type="password"
         placeholder="Secret Key"
         class="text-1xl mt-2 border border-solid p-1"
+        name="secret_key"
       />
       <input
         type="submit"

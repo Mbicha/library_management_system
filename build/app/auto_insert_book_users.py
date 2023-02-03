@@ -5,8 +5,9 @@ from models.book import Book
 from models.user import User
 from utils.books_to_list import csv_to_list
 from utils.generate_users import generate_users
+from werkzeug.security import generate_password_hash
 
-books_path = "build/data/books.csv"
+books_path = "/home/charles/Desktop/projects/library_management_system/build/data/books.csv"
 
 Base.metadata.create_all(engine)
 
@@ -36,8 +37,9 @@ def add_users(num):
     users = generate_users(num)
     for user in users:
         try:
-            user = User(user[0], user[1], user[2], user[3])
-            user.create_user()
+            password = user[3]
+            new_user = User(user[0], user[1], user[2], generate_password_hash(password, method='sha256'))
+            new_user.create_user()
         except:
             print(f"Error Adding User!")
 

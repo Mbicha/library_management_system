@@ -5,14 +5,15 @@ from common.base import Base, myql_session
 from sqlalchemy import Column, DateTime, Integer, String
 from sqlalchemy.sql import func
 from flask import session
+from flask_login import UserMixin
 
-class User(Base, object):
+class User(Base, UserMixin, object):
     __tablename__ = 'user'
     user_id = Column(Integer, primary_key=True)
     full_name = Column(String(100), nullable=False)
-    email_address = Column(String(60), nullable=False)
+    email_address = Column(String(60), nullable=False, unique=True)
     phone = Column(String(30), nullable=True)
-    password = Column(String(15), nullable=False)
+    password = Column(String(3000), nullable=False)
     created_at = Column(DateTime(timezone=True), default=func.now())
 
     def __init__(self, full_name, email_address, phone, password):

@@ -4,6 +4,7 @@ import os
 from flask import Blueprint, render_template, request, session, abort, url_for, redirect
 from models.user import User
 from models.book import Book
+from flask_login import login_required
 
 
 # template_dir = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -73,6 +74,7 @@ def book_search():
             books = Book.check_if_empty(books)
             return render_template('search_results.html', books=books)
 
+@login_required
 @main.route("/books/new", methods=['GET', 'POST'], strict_slashes=False)
 def new_book():
     book_exists=False
@@ -91,6 +93,7 @@ def new_book():
         book.create_book()
         return redirect(url_for('main.books'))
 
+@login_required
 @main.route("/book/update/<string:isbn_no>", methods=['GET', 'POST'])
 def update_book(isbn_no):
     book_exists = True
@@ -109,6 +112,7 @@ def update_book(isbn_no):
         Book.book_update(isbn, title, author, category, thumbnail, description, year_published)
         return redirect(url_for("main.books"))
 
+@login_required
 @main.route("/book/delete/<string:isbn_no>")
 def delete_book(isbn_no):
     Book.book_delete(isbn_no)
@@ -124,7 +128,3 @@ def books():
 def book_details(isbn_no):
     book = Book.get_book_by_isbn(isbn_no)
     return render_template('book_details.html', book=book, isbn_no=isbn_no)
-
-@main.route("/borrowed/")
-def borrowed():
-    return render_template('borrowed.html')
