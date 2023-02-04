@@ -3,6 +3,8 @@
 from flask import (Blueprint, render_template, request, session,
                 abort, url_for, redirect)
 from models.issued import Issued
+from models.user import User
+from models.librarian import Librarian
 
 issued_blueprint  = Blueprint('issued_blueprint', __name__)
 

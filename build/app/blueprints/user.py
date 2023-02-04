@@ -4,6 +4,7 @@ from flask import (Blueprint, render_template, request, session,
                 abort, url_for, redirect, flash)
 from werkzeug.security import generate_password_hash, check_password_hash
 from models.user import User
+from models.issued import Issued
 from flask_login import login_required
 
 user_blueprint  = Blueprint('user_blueprint', __name__)
@@ -15,7 +16,11 @@ has_account = False
 def profile():
     email = session['email']
     user = User.get_by_email(email)
-    return render_template('profile.html', user=user)
+
+    user_id = User.get_id_by_email(email)
+    books_borrowed = Issued.get_book_borrowed_by_user_id(user_id)
+
+    return render_template('profile.html', user=user, books=books_borrowed)
 
 @user_blueprint.route("/account")
 def signup_template():

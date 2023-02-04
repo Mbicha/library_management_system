@@ -2,8 +2,6 @@
 
 from common.base import Base, engine
 from common.configs import SECRET_KEY
-from models.librarian import Librarian
-from models.issued import Issued
 
 Base.metadata.create_all(engine)
 

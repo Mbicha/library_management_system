@@ -5,7 +5,7 @@
       <a href="/book/update/{{ isbn_no }}" class="border border-spacing-1 border-solid bg-green-700 p-2 rounded-lg text-white">
         Update
       </a>
-      <a href="#" class="border border-spacing-1 border-solid bg-green-700 p-2 rounded-lg text-white">
+      <a href="{{ url_for('main.book_borrow') }}" class="border border-spacing-1 border-solid bg-green-700 p-2 rounded-lg text-white">
         Borrow
       </a>
       <a href="/book/delete/{{ isbn_no }}" class="border border-spacing-1 border-solid bg-red-700 p-2 rounded-lg text-white">

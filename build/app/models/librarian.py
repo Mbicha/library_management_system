@@ -33,20 +33,26 @@ class Librarian(Base):
         myql_session.close()
 
     @staticmethod
-    def get_librarian_by_email(email: str) -> dict:
+    def get_librarian_by_email(email):
         """
+        Parameters
+        ----------
+        email - librarian email address
+        ------
+        Return
+        ------
+        Librarian object
         """
-        librarian: dict = myql_session.query(Librarian).filter(Librarian.email==email).first()
-        return librarian
-        # return {
-        #     "librarian_id": librarian.librarian_id,
-        #     "full_name": librarian.full_name,
-        #     "email": librarian.email,
-        #     "created_at": librarian.created_at
-        # }
+        librarian = myql_session.query(Librarian).filter(Librarian.email==email).first()
+        return {
+            "librarian_id": librarian.librarian_id,
+            "name": librarian.name,
+            "email": librarian.email,
+            "created_at": librarian.created_at
+        }
     
     @staticmethod
-    def get_id_by_email(email: str) -> int:
+    def get_id_by_email(email):
         """
         Parameters
         ----------
@@ -56,7 +62,7 @@ class Librarian(Base):
         ------
         librarian_id (int)
         """
-        librarian: int = Librarian.get_librarian_by_email(email)
+        librarian = Librarian.get_librarian_by_email(email)
         return librarian['librarian_id']
 
     @classmethod
@@ -78,3 +84,5 @@ class Librarian(Base):
         myql_session.delete(user)
         myql_session.commit()            
         myql_session.close()
+
+print(Librarian.get_id_by_email('mbithicharlse@gmail.com'))

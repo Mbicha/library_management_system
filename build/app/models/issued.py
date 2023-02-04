@@ -73,3 +73,28 @@ class Issued(Base):
                 Issued.issued_id==issued_id
             ).first()
         return books_borrowed
+
+    @classmethod
+    def get_book_borrowed_by_user_id(cls, user_id):
+        """
+        Parameters
+        ----------
+        issued_id (int) - Unique identifier
+        ------
+        Return
+        ------
+        Return an object of a book
+        """
+        books_borrowed = myql_session.query(
+                Issued, Book, Librarian, User
+            ).join(
+                Book, Issued.book_isbn == Book.isbn_no
+            ).join(
+                Librarian, Issued.librarian_id == Librarian.librarian_id
+            ).join(
+                User, Issued.borrower_id == User.user_id
+            ).filter(
+                Issued.borrower_id==user_id
+            ).all()
+        
+        return [book for book in books_borrowed]

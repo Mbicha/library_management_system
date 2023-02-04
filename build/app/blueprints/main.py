@@ -4,6 +4,8 @@ import os
 from flask import Blueprint, render_template, request, session, abort, url_for, redirect
 from models.user import User
 from models.book import Book
+from models.librarian import Librarian
+from models.issued import Issued
 from flask_login import login_required
 
 
@@ -26,6 +28,8 @@ filters = {
         "bk_title": "Title",
         "year_published": "Year Published"
     }
+
+book_to_issue = {}
 
 @main.route("/")
 def home():
@@ -127,4 +131,33 @@ def books():
 @main.route("/book_details/<string:isbn_no>", strict_slashes=False)
 def book_details(isbn_no):
     book = Book.get_book_by_isbn(isbn_no)
-    return render_template('book_details.html', book=book, isbn_no=isbn_no)
+    user_email = session.get('email')
+    user_id = User.get_id_by_email(user_email)
+    librarian_id = Librarian.get_id_by_email('mbithicharlse@gmail.com')
+
+    book_to_issue['book_isbn'] = isbn_no
+    book_to_issue['librarian_id'] = librarian_id
+    book_to_issue['user_id'] = user_id
+
+    return render_template(
+        'book_details.html',
+        book = book,
+        isbn_no = isbn_no,
+        user_id = user_id,
+        librarian_id = librarian_id
+    )
+
+@main.route("/book/borrow", methods=['GET','POST'], strict_slashes=False)
+def book_borrow():
+    if request.method == 'GET':
+        return render_template('issued.html', new_issue=book_to_issue)
+
+    else:
+        isbn = request.form['book_isbn']
+        librarian_id = request.form['librarian_id']
+        user_id = request.form['user_id']
+        new_issued = Issued(
+            isbn, librarian_id, user_id
+        )
+        new_issued.create_issued()
+        return redirect(url_for('issued_blueprint.books_issued'))
